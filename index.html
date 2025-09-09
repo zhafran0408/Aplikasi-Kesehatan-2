@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aplikasi kesehatan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+</body>
+</html>
+</head>
+<body>
+  <div class="container">
+    <h1>Data Santri Sakit</h1>
+    <div class="input">
+      <input type="text" id="nama" placeholder="Santri yang sakit ...">
+      <input type="text" id="rawat" placeholder="Rawat inap ...">
+      <button onclick="tambahCatatan()">input</button>
+    </div>
+    <ul id="catatan"></ul>
+  </div>
+
+  <!-- Modal Edit -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <h2>Edit Data</h2>
+      <input type="text" id="editNama">
+      <input type="text" id="editRawat">
+      <button class="save-btn" onclick="simpanEdit()">Simpan</button>
+      <button class="close-btn" onclick="tutupModal()">Batal</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
