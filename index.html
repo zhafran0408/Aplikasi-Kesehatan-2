@@ -1,38 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>aplikasi kesehatan</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Risiko Diabetes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-</body>
-</html>
-</head>
-<body>
-  <div class="container">
-    <h1>Data Santri Sakit</h1>
-    <div class="input">
-      <input type="text" id="nama" placeholder="Santri yang sakit ...">
-      <input type="text" id="rawat" placeholder="Rawat inap ...">
-      <button onclick="tambahCatatan()">input</button>
+
+  <!-- Opening Page -->
+  <div id="opening" class="opening-screen fade-in">
+    <div class="opening-content">
+      <h1>Cek Risiko Diabetes</h1>
+      <p>Layanan pemeriksaan mandiri untuk mengetahui risiko diabetes Anda secara cepat dan gratis.</p>
+      <button id="startBtn">Mulai Pemeriksaan</button>
     </div>
-    <ul id="catatan"></ul>
   </div>
 
-  <!-- Modal Edit -->
-  <div class="modal" id="editModal">
-    <div class="modal-content">
-      <h2>Edit Data</h2>
-      <input type="text" id="editNama">
-      <input type="text" id="editRawat">
-      <button class="save-btn" onclick="simpanEdit()">Simpan</button>
-      <button class="close-btn" onclick="tutupModal()">Batal</button>
+  <!-- Main App -->
+  <div id="mainApp" class="container hidden fade-in">
+    <h2>Layanan Pemeriksaan</h2>
+
+    <div id="notif" class="notif hidden">✅ Data berhasil diperiksa</div>
+
+    <div class="input-group">
+      <label>Nama Lengkap</label>
+      <input type="text" id="nama" placeholder="Masukkan nama Anda" />
     </div>
+
+    <div class="input-group">
+      <label>Usia (tahun)</label>
+      <input type="number" id="usia" placeholder="Contoh: 35" />
+    </div>
+
+    <div class="input-group">
+      <label>Jenis Kelamin</label>
+      <select id="gender">
+        <option value="">Pilih</option>
+        <option value="Pria">Pria</option>
+        <option value="Wanita">Wanita</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Berat Badan (kg)</label>
+      <input type="number" id="berat" placeholder="Contoh: 70" />
+    </div>
+
+    <div class="input-group">
+      <label>Tinggi Badan (cm)</label>
+      <input type="number" id="tinggi" placeholder="Contoh: 165" />
+    </div>
+
+    <div class="input-group">
+      <label>Aktivitas Fisik</label>
+      <select id="aktivitas">
+        <option value="">Pilih</option>
+        <option value="aktif">Aktif (olahraga ≥3x/minggu)</option>
+        <option value="jarang">Jarang olahraga</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Riwayat Keluarga dengan Diabetes</label>
+      <select id="riwayat">
+        <option value="">Pilih</option>
+        <option value="tidak">Tidak Ada</option>
+        <option value="ada">Ada</option>
+      </select>
+    </div>
+
+    <button id="hitungBtn" class="btn-primary">Hitung Risiko</button>
+
+    <p id="warning" class="warning hidden">⚠️ Semua data wajib diisi sebelum melakukan pemeriksaan.</p>
+
+    <div id="hasil" class="result-box hidden"></div>
+
+    <button id="resetBtn" class="btn-danger hidden">Hapus Data</button>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
