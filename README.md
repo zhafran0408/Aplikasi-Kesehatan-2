@@ -1,1 +1,1 @@
-# cekgulaku.vercel.app
+# cekgulaku.com
