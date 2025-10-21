@@ -3,86 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cek Risiko Diabetes</title>
+  <title>CekGulaKu</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="./health-svgrepo-com.svg" type="image/x-icon">
 </head>
 <body>
 
   <!-- Opening Page -->
-  <div id="opening" class="opening-screen fade-in">
+  <div id="opening" class="page active fade">
     <div class="opening-content">
-      <h1>Cek Risiko Diabetes</h1>
-      <p>Layanan pemeriksaan mandiri untuk mengetahui risiko diabetes Anda secara cepat dan gratis.</p>
-      <button id="startBtn">Mulai Pemeriksaan</button>
+      <h1>CekGulaKu</h1>
+      <p>Website untuk membantu Anda mengenali risiko diabetes sejak dini dan menjaga kesehatan tubuh Anda.</p>
+      <div class="btn-group">
+        <button id="mulaiBtn" class="btn-blue">Mulai Pemeriksaan</button>
+        <button id="tipsBtn" class="btn-red">Tips Menjaga Kesehatan</button>
+      </div>
     </div>
   </div>
 
-  <!-- Main App -->
-  <div id="mainApp" class="container hidden fade-in">
-    <h2>Layanan Pemeriksaan</h2>
+  <!-- Pemeriksaan Page -->
+  <div id="pemeriksaan" class="page fade">
+    <h2>Form Pemeriksaan Risiko Diabetes</h2>
 
-    <div id="notif" class="notif hidden">✅ Data berhasil diperiksa</div>
-
-    <div class="input-group">
-      <label>Nama Lengkap</label>
-      <input type="text" id="nama" placeholder="Masukkan nama Anda" />
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nama Lengkap</label>
+        <input type="text" id="nama" placeholder="Masukkan nama Anda">
+      </div>
+      <div class="form-group">
+        <label>Usia (tahun)</label>
+        <input type="number" id="usia" placeholder="Contoh: 30">
+      </div>
+      <div class="form-group">
+        <label>Berat Badan (kg)</label>
+        <input type="number" id="berat" placeholder="Contoh: 65">
+      </div>
+      <div class="form-group">
+        <label>Tinggi Badan (cm)</label>
+        <input type="number" id="tinggi" placeholder="Contoh: 170">
+      </div>
+      <div class="form-group">
+        <label>Lingkar Pinggang (cm)</label>
+        <input type="number" id="pinggang" placeholder="Contoh: 85">
+      </div>
+      <div class="form-group">
+        <label>Aktivitas Fisik</label>
+        <select id="aktivitas">
+          <option value="">Pilih</option>
+          <option value="aktif">Aktif (≥3x/minggu)</option>
+          <option value="jarang">Jarang olahraga</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Riwayat Keluarga Diabetes</label>
+        <select id="riwayat">
+          <option value="">Pilih</option>
+          <option value="ada">Ada</option>
+          <option value="tidak">Tidak Ada</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Konsumsi Buah & Sayur</label>
+        <select id="makan">
+          <option value="">Pilih</option>
+          <option value="sering">Sering</option>
+          <option value="jarang">Jarang</option>
+        </select>
+      </div>
     </div>
 
-    <div class="input-group">
-      <label>Usia (tahun)</label>
-      <input type="number" id="usia" placeholder="Contoh: 35" />
+    <div class="btn-group">
+      <button id="hitungBtn" class="btn-blue">Hitung Risiko</button>
+      <button id="backHomeBtn" class="btn-red">Kembali</button>
     </div>
 
-    <div class="input-group">
-      <label>Jenis Kelamin</label>
-      <select id="gender">
-        <option value="">Pilih</option>
-        <option value="Pria">Pria</option>
-        <option value="Wanita">Wanita</option>
-      </select>
+    <div id="hasil" class="result-card hidden"></div>
+
+    <div id="saveGroup" class="btn-group hidden">
+      <button id="saveBtn" class="btn-blue">Simpan</button>
+      <button id="deleteBtn" class="btn-red">Hapus</button>
     </div>
-
-    <div class="input-group">
-      <label>Berat Badan (kg)</label>
-      <input type="number" id="berat" placeholder="Contoh: 70" />
-    </div>
-
-    <div class="input-group">
-      <label>Tinggi Badan (cm)</label>
-      <input type="number" id="tinggi" placeholder="Contoh: 165" />
-    </div>
-
-    <div class="input-group">
-      <label>Aktivitas Fisik</label>
-      <select id="aktivitas">
-        <option value="">Pilih</option>
-        <option value="aktif">Aktif (olahraga ≥3x/minggu)</option>
-        <option value="jarang">Jarang olahraga</option>
-      </select>
-    </div>
-
-    <div class="input-group">
-      <label>Riwayat Keluarga dengan Diabetes</label>
-      <select id="riwayat">
-        <option value="">Pilih</option>
-        <option value="tidak">Tidak Ada</option>
-        <option value="ada">Ada</option>
-      </select>
-    </div>
-
-    <button id="hitungBtn" class="btn-primary">Hitung Risiko</button>
-
-    <p id="warning" class="warning hidden">⚠️ Semua data wajib diisi sebelum melakukan pemeriksaan.</p>
-
-    <div id="hasil" class="result-box hidden"></div>
-
-    <button id="resetBtn" class="btn-danger hidden">Hapus Data</button>
   </div>
+
+  <!-- Tips Page -->
+  <div id="tips" class="page fade">
+    <h2>Tips Menjaga Kesehatan</h2>
+    <ul class="tips-list">
+      <li>🍎 Konsumsi buah dan sayur setiap hari.</li>
+      <li>🚶‍♂️ Lakukan aktivitas fisik minimal 30 menit per hari.</li>
+      <li>💧 Minum air putih yang cukup dan kurangi minuman manis.</li>
+      <li>🩸 Lakukan pemeriksaan gula darah secara berkala.</li>
+      <li>😴 Tidur cukup dan hindari stres berlebihan.</li>
+    </ul>
+    <div class="btn-group">
+      <button id="backHomeTips" class="btn-blue">Kembali ke Beranda</button>
+    </div>
+  </div>
+
+  <footer>© 2025 CekGulaKu. Semua Hak Dilindungi.</footer>
 
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

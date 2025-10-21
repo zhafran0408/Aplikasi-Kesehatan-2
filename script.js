@@ -1,22 +1,28 @@
-const opening = document.getElementById('opening');
-const mainApp = document.getElementById('mainApp');
-const startBtn = document.getElementById('startBtn');
-const hitungBtn = document.getElementById('hitungBtn');
-const resetBtn = document.getElementById('resetBtn');
-const hasil = document.getElementById('hasil');
-const warning = document.getElementById('warning');
-const notif = document.getElementById('notif');
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById(id);
+  page.classList.add('active');
 
-startBtn.addEventListener('click', () => {
-  opening.classList.add('fade-out');
-  setTimeout(() => {
-    opening.style.display = 'none';
-    mainApp.classList.remove('hidden');
-    mainApp.classList.add('fade-in');
-  }, 600);
-});
+  if (id === 'opening') resetForm();
+}
 
-hitungBtn.addEventListener('click', () => {
+function resetForm() {
+  document.querySelectorAll('input, select').forEach(el => el.value = "");
+  const hasil = document.getElementById('hasil');
+  hasil.classList.add('hidden');
+  hasil.classList.remove('show', 'result-low', 'result-medium', 'result-high');
+  hasil.innerHTML = "";
+  document.getElementById('saveGroup').classList.add('hidden');
+}
+
+// Tombol navigasi
+document.getElementById('mulaiBtn').onclick = () => showPage('pemeriksaan');
+document.getElementById('tipsBtn').onclick = () => showPage('tips');
+document.getElementById('backHomeBtn').onclick = () => showPage('opening');
+document.getElementById('backHomeTips').onclick = () => showPage('opening');
+
+// Hitung Risiko
+document.getElementById('hitungBtn').onclick = () => {
   const nama = document.getElementById('nama').value.trim();
   const usia = parseInt(document.getElementById('usia').value);
   const berat = parseFloat(document.getElementById('berat').value);
@@ -25,63 +31,104 @@ hitungBtn.addEventListener('click', () => {
   const riwayat = document.getElementById('riwayat').value;
 
   if (!nama || !usia || !berat || !tinggi || !aktivitas || !riwayat) {
-    warning.classList.remove('hidden');
-    hasil.classList.add('hidden');
-    resetBtn.classList.add('hidden');
+    alert('⚠️ Semua data wajib diisi sebelum menghitung risiko.');
     return;
-  } else {
-    warning.classList.add('hidden');
   }
 
+  // Hitung BMI
   const bmi = berat / (tinggi * tinggi);
   let skor = 0;
 
-  if (usia >= 35 && usia < 50) skor += 1;
-  if (usia >= 50) skor += 2;
-  if (bmi >= 25 && bmi < 30) skor += 1;
-  if (bmi >= 30) skor += 2;
-  if (aktivitas === 'jarang') skor += 1;
-  if (riwayat === 'ada') skor += 2;
+  // Skor BMI
+  if (bmi >= 25) skor += 2;
+  else if (bmi >= 23) skor += 1;
 
-  let risiko = '';
-  let warna = '';
+  // Skor usia
+  if (usia >= 45) skor += 2;
+  else if (usia >= 35) skor += 1;
+
+  // Aktivitas
+  if (aktivitas === "rendah") skor += 2;
+  else if (aktivitas === "sedang") skor += 1;
+
+  // Riwayat keluarga
+  if (riwayat === "ada") skor += 2;
+
+  // Tentukan risiko
+  let kategori = "";
+  let kelas = "";
+  let saran = "";
 
   if (skor <= 2) {
-    risiko = 'Rendah';
-    warna = '#4caf50';
-  } else if (skor <= 4) {
-    risiko = 'Sedang';
-    warna = '#ff9800';
+    kategori = "Rendah";
+    kelas = "result-low";
+    saran = "Pertahankan pola hidup sehat dan tetap aktif 💪";
+  } else if (skor <= 5) {
+    kategori = "Sedang";
+    kelas = "result-medium";
+    saran = "Mulailah perhatikan pola makan dan rutin berolahraga 🏃‍♂️";
   } else {
-    risiko = 'Tinggi';
-    warna = '#f44336';
+    kategori = "Tinggi";
+    kelas = "result-high";
+    saran = "Segera konsultasikan ke dokter untuk pemeriksaan lebih lanjut 🩺";
   }
 
-  hasil.classList.remove('hidden');
-  hasil.style.color = warna;
+  // Tampilkan hasil
+  const hasil = document.getElementById('hasil');
   hasil.innerHTML = `
     <h3>Hasil Pemeriksaan</h3>
-    <p><strong>Nama:</strong> ${nama}</p>
-    <p><strong>Risiko Diabetes:</strong> ${risiko}</p>
-    <p><small>(BMI Anda: ${bmi.toFixed(1)})</small></p>
+    <p>Halo <b>${nama}</b> 👋</p>
+    <p>BMI Anda: <b>${bmi.toFixed(1)}</b></p>
+    <p><b>Risiko Anda: ${kategori}</b></p>
+    <p>${saran}</p>
   `;
+  hasil.className = `hasil show ${kelas}`;
 
-  resetBtn.classList.remove('hidden');
+  document.getElementById('saveGroup').classList.remove('hidden');
+};
 
-  // Notifikasi sukses
-  notif.classList.remove('hidden');
-  notif.style.animation = 'slideDown 0.4s ease forwards';
-  setTimeout(() => {
-    notif.classList.add('hidden');
-  }, 3000);
-});
+// Simpan dan hapus data
+document.getElementById('saveBtn').onclick = () => {
+  alert('✅ Data berhasil disimpan.');
+  resetForm();
+  showPage('opening');
+};
 
-resetBtn.addEventListener('click', () => {
-  document.querySelectorAll('input, select').forEach(el => el.value = '');
-  hasil.classList.add('hidden');
-  resetBtn.classList.add('hidden');
-  warning.classList.add('hidden');
-});
+document.getElementById('deleteBtn').onclick = () => {
+  alert('🗑️ Data dihapus.');
+  resetForm();
+  showPage('opening');
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
